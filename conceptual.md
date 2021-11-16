@@ -35,7 +35,13 @@ Express.js is a JS based web framework similar to Flask or Django. Express.js re
 
 - What is middleware?
 
+At high level, middleware is code that runs during the request, response cycle. In Express, middleware are functions that can access the req and res objects while also being able to call the next function. 
+
+404 and global error handlers are examples of Express middleware, if there is an error, they'll run during the req-res cycle. 
+
 - What does the `next` function do?
+
+The next function tells Express to move onto the "next" matching route handler. If "next" is used in the context of error handling then the next matching route will be the error handler. In order to be used within a function, "next" must be passed in as a parameter. 
 
 - What are some issues with the following code? (consider all aspects: performance, structure, naming, etc)
 
@@ -48,3 +54,15 @@ async function getUsers() {
   return [elie, matt, joel];
 }
 ```
+
+There are several issues with the above code. 
+
+1) The route should be entered as a string temp lit with base url and variable. 
+
+for example: `${baseUrl}/elie`
+
+2) Variables should be name something like dev1, dev2 and dev3.
+
+3) There is no error handling, try/catch statements should be used in case any of the requests fail. 
+
+4) All 3 requests could be made in parallel to get better performance. 
